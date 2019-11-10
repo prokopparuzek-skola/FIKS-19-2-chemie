@@ -39,22 +39,23 @@ func main() {
 	byCost = make([]day, 0)
 	byDur = make([]day, 0)
 	for i := 1; i <= N; i++ { // proiteruje kazdy den
+		println(i)
 		if len(days) > 0 && days[0].start == i { // přidání lahviček
 			days[0].dur += (days[0].start + 1)
 			byDur = append(byDur, days[0]) // přidání dle výdrže
 			for j := len(byDur) - 1; j > 0; j-- {
-				if byDur[j-1].dur < byDur[j].dur {
+				if byDur[j-1].dur > byDur[j].dur {
 					swp := byDur[j-1]
-					byDur[j-1] = days[j]
-					days[j] = swp
+					byDur[j-1] = byDur[j]
+					byDur[j] = swp
 				}
 			}
 			byCost = append(byCost, days[0]) // přidání dle ceny
 			for j := len(byCost) - 1; j > 0; j-- {
-				if byCost[j-1].cost < byCost[j].cost {
+				if byCost[j-1].cost > byCost[j].cost {
 					swp := byCost[j-1]
-					byCost[j-1] = days[j]
-					days[j] = swp
+					byCost[j-1] = byCost[j]
+					byCost[j] = swp
 				}
 			}
 			days = days[1:]
@@ -64,7 +65,7 @@ func main() {
 		for byDur[0].dur == i { // odstraneni proslych lahvicek
 			var tmp day
 			for j := 0; j < len(byCost); j++ {
-				if byCost[j] == byDur[0] {
+				if byCost[j] == byDur[0] { // TODO předělat
 					continue
 				} else {
 					swp := tmp
