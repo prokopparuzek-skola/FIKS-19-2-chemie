@@ -22,12 +22,11 @@ func main() {
 		var test bool = true
 		var tmp day
 		for j := 0; j <= i; j++ { // insert sort
-			if d < days[j].dur && test {
+			if d < days[j].start && test {
 				tmp = days[j]
 				days[j] = days[i]
 				test = false
-			}
-			if !test {
+			} else if !test {
 				swp := tmp
 				tmp = days[j]
 				days[j] = swp
@@ -40,10 +39,10 @@ func main() {
 	byCost = make([]day, 0)
 	byDur = make([]day, 0)
 	for i := 1; i <= N; i++ { // proiteruje kazdy den
-		if days[0].start == i { // přidání lahviček
+		if len(days) > 0 && days[0].start == i { // přidání lahviček
 			days[0].dur += (days[0].start + 1)
 			byDur = append(byDur, days[0]) // přidání dle výdrže
-			for j := len(byDur) - 1; j <= 0; j-- {
+			for j := len(byDur) - 1; j > 0; j-- {
 				if byDur[j-1].dur < byDur[j].dur {
 					swp := byDur[j-1]
 					byDur[j-1] = days[j]
@@ -51,7 +50,7 @@ func main() {
 				}
 			}
 			byCost = append(byCost, days[0]) // přidání dle ceny
-			for j := len(byCost) - 1; j <= 0; j-- {
+			for j := len(byCost) - 1; j > 0; j-- {
 				if byCost[j-1].cost < byCost[j].cost {
 					swp := byCost[j-1]
 					byCost[j-1] = days[j]
@@ -60,6 +59,8 @@ func main() {
 			}
 			days = days[1:]
 		}
+		fmt.Println(byDur)
+		fmt.Println(byCost)
 		for byDur[0].dur == i { // odstraneni proslych lahvicek
 			var tmp day
 			for j := 0; j < len(byCost); j++ {
