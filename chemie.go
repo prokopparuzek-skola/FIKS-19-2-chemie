@@ -39,7 +39,6 @@ func main() {
 	byCost = make([]day, 0)
 	byDur = make([]day, 0)
 	for i := 1; i <= N; i++ { // proiteruje kazdy den
-		println(i)
 		if len(days) > 0 && days[0].start == i { // přidání lahviček
 			days[0].dur += (days[0].start + 1)
 			byDur = append(byDur, days[0]) // přidání dle výdrže
@@ -60,8 +59,6 @@ func main() {
 			}
 			days = days[1:]
 		}
-		fmt.Println(byDur)
-		fmt.Println(byCost)
 		for len(byDur) > 0 && byDur[0].dur == i { // odstraneni proslych lahvicek
 			var test bool = false
 			for j := 0; j < len(byCost)-1; j++ {
