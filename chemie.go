@@ -62,15 +62,14 @@ func main() {
 		}
 		fmt.Println(byDur)
 		fmt.Println(byCost)
-		for byDur[0].dur == i { // odstraneni proslych lahvicek
-			var tmp day
-			for j := 0; j < len(byCost); j++ {
-				if byCost[j] == byDur[0] { // TODO předělat
-					continue
-				} else {
-					swp := tmp
-					tmp = days[j]
-					days[j] = swp
+		for len(byDur) > 0 && byDur[0].dur == i { // odstraneni proslych lahvicek
+			var test bool = false
+			for j := 0; j < len(byCost)-1; j++ {
+				if len(byCost) > 0 && (byCost[j] == byDur[0] || test) { // probublání na konec
+					swp := byCost[j]
+					byCost[j] = byCost[j+1]
+					byCost[j+1] = swp
+					test = true
 				}
 			}
 			byCost = byCost[:len(byCost)-1]
@@ -78,6 +77,7 @@ func main() {
 		}
 		if len(byCost) == 0 {
 			fmt.Printf("Experiment konci dnem %d\n", i)
+			return
 		} else {
 			cost += byCost[0].cost
 		}
