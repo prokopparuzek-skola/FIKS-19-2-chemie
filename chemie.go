@@ -44,7 +44,7 @@ func main() {
 			days[0].dur += (days[0].start + 1)
 			byDur = append(byDur, days[0]) // přidání dle výdrže
 			for j := len(byDur) - 1; j > 0; j-- {
-				if byDur[j-1].dur > byDur[j].dur {
+				if byDur[j-1].dur > byDur[j].dur { // probublá lahvičku na správné místo
 					swp := byDur[j-1]
 					byDur[j-1] = byDur[j]
 					byDur[j] = swp
@@ -52,7 +52,7 @@ func main() {
 			}
 			byCost = append(byCost, days[0]) // přidání dle ceny
 			for j := len(byCost) - 1; j > 0; j-- {
-				if byCost[j-1].cost > byCost[j].cost {
+				if byCost[j-1].cost > byCost[j].cost { // probublá lahvičku na správné místo
 					swp := byCost[j-1]
 					byCost[j-1] = byCost[j]
 					byCost[j] = swp
@@ -63,15 +63,15 @@ func main() {
 		for len(byDur) > 0 && byDur[0].dur == i { // odstraneni proslych lahvicek
 			var test bool = false
 			for j := 0; j < len(byCost)-1; j++ {
-				if len(byCost) > 0 && (byCost[j] == byDur[0] || test) { // probublání na konec
+				if len(byCost) > 0 && (byCost[j] == byDur[0] || test) { // probublání na konec, cena
 					swp := byCost[j]
 					byCost[j] = byCost[j+1]
 					byCost[j+1] = swp
 					test = true
 				}
 			}
-			byCost = byCost[:len(byCost)-1]
-			byDur = byDur[1:]
+			byCost = byCost[:len(byCost)-1] // odstranění koncem dle ceny
+			byDur = byDur[1:] // odtranění prvního elementu, dle výdrže
 		}
 		if len(byCost) == 0 {
 			fmt.Printf("Experiment konci dnem %d\n", i)
